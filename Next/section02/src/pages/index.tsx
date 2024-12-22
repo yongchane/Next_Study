@@ -1,3 +1,3 @@
 export default function Home() {
-  return <>인덱스</>;
+  return <h1>인덱스</h1>;
 }

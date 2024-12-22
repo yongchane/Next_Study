@@ -21,10 +21,12 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <header>
         <Link href={"/"}>index</Link>
+        &nbsp;
         <Link href={"/search"}>search</Link>
       </header>
       <button onClick={onClickHandler}> 클릭</button>
-      <Component {...pageProps} />;
+      &nbsp;
+      <Component {...pageProps} />
     </>
   );
 }
