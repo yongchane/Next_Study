@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@types/styled-components": "^5.1.34"
+  },
+  "dependencies": {
+    "styled-components": "^6.1.13"
+  }
+}

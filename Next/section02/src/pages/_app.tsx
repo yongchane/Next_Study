@@ -1,32 +1,18 @@
+import GlobalLayout from "@/component/global-layout";
 import "@/styles/globals.css";
+import { NextPage } from "next";
 import type { AppProps } from "next/app";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { ReactNode } from "react";
 
-export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactNode) => ReactNode;
+};
 
-  const onClickHandler = () => {
-    router.push("/test");
-  };
-
-  useEffect(
-    () => {
-      router.prefetch("/test");
-    } // 어떤 페이지를 prefetch할건지 정해주면 됌
-  );
-
-  return (
-    <>
-      <header>
-        <Link href={"/"}>index</Link>
-        &nbsp;
-        <Link href={"/search"}>search</Link>
-      </header>
-      <button onClick={onClickHandler}> 클릭</button>
-      &nbsp;
-      <Component {...pageProps} />
-    </>
-  );
+export default function App({
+  Component,
+  pageProps,
+}: AppProps & { Component: NextPageWithLayout }) {
+  const getLatout = Component.getLayout ?? ((page: ReactNode) => page);
+  //?? ((page: ReactNode) => page) 해당 부분을 통해 getLayout이 적용 안되는 컴포넌트는 page로 그냥 통과 시킴
+  return <GlobalLayout>{getLatout(<Component {...pageProps} />)}</GlobalLayout>;
 }
