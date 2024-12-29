@@ -10,8 +10,7 @@
 
 .header {
   height: 60px;
-
-  font-weight: 600;
+  font-weight: bold;
   font-size: 18px;
   line-height: 60px;
 }
