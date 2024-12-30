@@ -2,9 +2,9 @@
 import SearchableLayout from "@/components/searchable-layout";
 import style from "./index.module.css";
 import { ReactNode, useEffect } from "react";
-import books from "@/mock/books.json";
+
 import BookItem from "@/components/book-item";
-import { InferGetServerSidePropsType } from "next";
+import { InferGetStaticPropsType } from "next";
 import fetchbook from "@/lib/fetch-books";
 import fetchrandom from "@/lib/fetch-random";
 
@@ -13,7 +13,7 @@ import fetchrandom from "@/lib/fetch-random";
 // 1. 해당 경로로 요청이 들어왔을때
 // 2. getServerSideProps가 작동을해서 필요 데이터를 가져옴
 // 3. 해당 page 컴포넌트가 실행이 됨
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   // getServerSideProps는 사전 렌더링을 하는 그과정에서 딱 한번만 실행이 됨(오직 서버측에서만 실행)
   // window와 같은 브라우저에서 실행되는건 안됌
   //getServerSideProps는 객체를 반환 해야하는데 Props를 통해 반환함
@@ -36,7 +36,7 @@ export const getServerSideProps = async () => {
 export default function Home({
   allbooks,
   recombooks,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   console.log("책들", allbooks);
   useEffect(() => {}, []);
   return (
