@@ -7,6 +7,7 @@ import BookItem from "@/components/book-item";
 import { InferGetStaticPropsType } from "next";
 import fetchbook from "@/lib/fetch-books";
 import fetchrandom from "@/lib/fetch-random";
+import Head from "next/head";
 
 // next에서 약속한 함수로 ssr을 수행하기 위한 컴포넌트
 // ->해당home컴포넌트보다 먼저 실행이 되서 필요한 데이터를 미리 불러옴
@@ -17,7 +18,7 @@ export const getStaticProps = async () => {
   // getServerSideProps는 사전 렌더링을 하는 그과정에서 딱 한번만 실행이 됨(오직 서버측에서만 실행)
   // window와 같은 브라우저에서 실행되는건 안됌
   //getServerSideProps는 객체를 반환 해야하는데 Props를 통해 반환함
-  console.log("인덱스 페이지");
+
   const [allbooks, recombooks] = await Promise.all([
     fetchbook(),
     fetchrandom(),
@@ -41,20 +42,29 @@ export default function Home({
   console.log("책들", allbooks);
   useEffect(() => {}, []);
   return (
-    <div className={style.container}>
-      <section>
-        <h3>지금 추천하는 도서</h3>
-        {recombooks.map((book) => (
-          <BookItem key={book.id} {...book} />
-        ))}
-      </section>
-      <section>
-        <h3>등록된 모든 도서</h3>
-        {allbooks.map((book) => (
-          <BookItem key={book.id} {...book} />
-        ))}
-      </section>
-    </div>
+    <>
+      {/* 메타 태그 설정 */}
+      <Head>
+        <title>한입 북스</title>
+        <meta property="og:image" content="/thumbnail.png" />
+        <meta property="og:title" content="한입 북스" />
+        <meta property="og:title" content="한입 북스 도서를 만나보세요" />
+      </Head>
+      <div className={style.container}>
+        <section>
+          <h3>지금 추천하는 도서</h3>
+          {recombooks.map((book) => (
+            <BookItem key={book.id} {...book} />
+          ))}
+        </section>
+        <section>
+          <h3>등록된 모든 도서</h3>
+          {allbooks.map((book) => (
+            <BookItem key={book.id} {...book} />
+          ))}
+        </section>
+      </div>
+    </>
   );
 }
 

@@ -5,7 +5,7 @@ import { ReactNode, useEffect, useState } from "react";
 import BookItem from "@/components/book-item";
 import fetchbook from "@/lib/fetch-books";
 import { BookData } from "@/types";
-
+import Head from "next/head";
 //context라는 매개변수에는 현재 브라우저로부터 받은 요청에 대한 모든 정보가 다 포함이 되어있음 -> 검색 결과 q를 불러올거임
 // export const getStaticProps = async (
 //   context: GetStaticPropsContext
@@ -38,6 +38,12 @@ export default function Page() {
 
   return (
     <div>
+      <Head>
+        <title>한입 북스 - 검색 결과</title>
+        <meta property="og:image" content="/thumbnail.png" />
+        <meta property="og:title" content="한입 북스 -검색 결과" />
+        <meta property="og:title" content="한입 북스 도서를 만나보세요" />
+      </Head>
       {books?.map((book) => (
         <BookItem key={book.id} {...book} />
       ))}
