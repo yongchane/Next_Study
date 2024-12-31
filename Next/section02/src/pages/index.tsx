@@ -26,7 +26,7 @@ export const getStaticProps = async () => {
 
   return {
     props: { allbooks, recombooks },
-    revalidate: 3, // revalidate는 재검증하다는 뜻으로 isr을 적용시키는 코드임 몇초 주기인지 명시해서 사용함
+    // revalidate는 재검증하다는 뜻으로 isr을 적용시키는 코드임 몇초 주기인지 명시해서 사용함
   };
 };
 
