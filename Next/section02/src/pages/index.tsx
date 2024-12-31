@@ -17,7 +17,7 @@ export const getStaticProps = async () => {
   // getServerSideProps는 사전 렌더링을 하는 그과정에서 딱 한번만 실행이 됨(오직 서버측에서만 실행)
   // window와 같은 브라우저에서 실행되는건 안됌
   //getServerSideProps는 객체를 반환 해야하는데 Props를 통해 반환함
-
+  console.log("인덱스 페이지");
   const [allbooks, recombooks] = await Promise.all([
     fetchbook(),
     fetchrandom(),
@@ -26,6 +26,7 @@ export const getStaticProps = async () => {
 
   return {
     props: { allbooks, recombooks },
+    revalidate: 3, // revalidate는 재검증하다는 뜻으로 isr을 적용시키는 코드임 몇초 주기인지 명시해서 사용함
   };
 };
 
