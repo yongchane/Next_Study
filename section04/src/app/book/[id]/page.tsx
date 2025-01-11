@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import style from "./page.module.css";
 
+// export const dynamicParams =false; -> 아래에 generateStaticParams로 선언하지 않은 페이지에 접속하명 404 페이지가 되게 설정, 기본 값은 true임
+
 // 정적 페이지를 선언함으로서 빌드 타임에 미리 생성하게 만듬 (풀 라우트 캐시를 이용하기 위해)
 // 안에 문자열로 적어야하고, 해당 선언한 페이지는 정적인 페이지로 설정이 됨
 export function generateStaticParams() {
