@@ -1,8 +1,11 @@
 import BookItem from "@/components/book-item";
 import style from "./page.module.css";
 import { BookData } from "@/types";
+import BookItemSkeleton from "@/components/skeleton/book-item-skeleton";
+import { Suspense } from "react";
+import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
 
-// export const dynamic =''
+export const dynamic = "force-dynamic";
 //  특정 페이지으 유형을 강제로 static,dynamic 페이지로 설정해주는 그러한 옵션
 //1. auto: 기본값, 아무것도 강제하지 않음
 //2. force-dynamic 페이지를 강제로 dynamic 페이지로 설정
@@ -50,7 +53,9 @@ export default function Home() {
     <div className={style.container}>
       <section>
         <h3>지금 추천하는 도서</h3>
-        <RecoBooks />
+        <Suspense fallback={<BookListSkeleton count={3} />}>
+          <RecoBooks />
+        </Suspense>
       </section>
       <section>
         <AllBooks />
