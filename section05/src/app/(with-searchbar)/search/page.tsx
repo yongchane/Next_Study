@@ -1,13 +1,10 @@
 import BookItem from "@/components/book-item";
 import { BookData } from "@/types";
+import { Suspense } from "react";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { q?: string };
-}) {
+async function SearchResult({ q }: { q: string }) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${searchParams.q}`,
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`,
     { cache: "force-cache" }
   );
 
@@ -23,5 +20,20 @@ export default async function Page({
         <BookItem key={book.id} {...book} />
       ))}
     </div>
+  );
+}
+
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { q?: string };
+}) {
+  return (
+    <Suspense key={searchParams.q || ""} fallback={<div>로딩중</div>}>
+      {" "}
+      {/* key 값에 따라 로딩 상태로 돌아가게 선언 */}
+      <SearchResult q={searchParams.q || ""} />{" "}
+      {/*  스트리밍할 수 있게 react suspense를 사용하여 만듬 */}
+    </Suspense>
   );
 }
